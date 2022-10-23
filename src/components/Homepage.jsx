@@ -4,15 +4,14 @@ import { Typography, Row, Col, Statistic } from 'antd';
 import { Link } from 'react-router-dom';
 import { useGetCryptosQuery } from '../services/cryptoApi';
 import { Cryptocurrencies, News } from '../components';
+import Loader from './Loader';
 
 const { Title } = Typography;
 const Homepage = () => {
   const { data, isFetching } = useGetCryptosQuery(10);
   const globalStats = data?.data?.stats;
 
-  console.log(data);
-
-  if (isFetching) return 'Loading..';
+  if (isFetching) return <Loader />;
   return (
     <>
       <Title level={2} className='heading'>
@@ -22,23 +21,23 @@ const Homepage = () => {
         <Col span={12}>
           <Statistic
             title='Total Cryptocurrencies'
-            value={millify(globalStats.total)}
+            value={millify(globalStats?.total)}
           />
           <Statistic
             title='Total Exchanges'
-            value={millify(globalStats.totalExchanges)}
+            value={millify(globalStats?.totalExchanges)}
           />
           <Statistic
             title='Total Market Cap'
-            value={millify(globalStats.totalMarketCap)}
+            value={millify(globalStats?.totalMarketCap)}
           />
           <Statistic
             title='Total 24h Volume'
-            value={millify(globalStats.total24hVolume)}
+            value={millify(globalStats?.total24hVolume)}
           />
           <Statistic
             title='Total Markets'
-            value={millify(globalStats.totalMarkets)}
+            value={millify(globalStats?.totalMarkets)}
           />
         </Col>
       </Row>
